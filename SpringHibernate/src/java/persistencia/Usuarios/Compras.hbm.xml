@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-10-2018 09:42:33 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="persistencia.Usuarios.Compras" table="compras" catalog="control_inventario" optimistic-lock="version">
+        <id name="idCompra" type="java.lang.Integer">
+            <column name="id_compra" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="productos" class="persistencia.Usuarios.Productos" fetch="select">
+            <column name="id_producto" not-null="true" />
+        </many-to-one>
+        <many-to-one name="proveedores" class="persistencia.Usuarios.Proveedores" fetch="select">
+            <column name="id_proveedor" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="java.lang.Integer">
+            <column name="cantidad" />
+        </property>
+        <property name="monto" type="java.lang.Double">
+            <column name="monto" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
