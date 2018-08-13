@@ -1,4 +1,9 @@
-package usam.mantenimiento;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package usam.DAO;
 
 import java.util.List;
 import org.hibernate.Query;
@@ -7,22 +12,13 @@ import org.hibernate.SessionFactory;
 import persistencia.Usuarios.Clientes;
 import usam.spring.HibernateUtil;
 
-public class ClienteMantenimiento {
-
-    public static void main(String[] args) {
-
-        Integer idCliente; //Memy oh yeah!
-        String cliente="";
-        String tipoPersona="";
-        String direccion="";
-        String telefono="";
-
-        ClienteMantenimiento mantenimiento = new ClienteMantenimiento();
-
-        System.out.println();
-    }
-
-    public int guardarClientes(Integer idCliente,
+/**
+ *
+ * @author Admin125
+ */
+public class ClientesDAO {
+    
+        public int guardarClientes(int idCliente,
             String cliente,
             String tipoPersona,
             String direccion,
