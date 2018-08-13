@@ -11,7 +11,7 @@ import java.util.Set;
 public class Clientes  implements java.io.Serializable {
 
 
-     private Integer idCliente; //Todos pueden comprar menos la josefa por mala paga
+     private Integer idCliente;
      private String cliente;
      private String tipoPersona;
      private String direccion;

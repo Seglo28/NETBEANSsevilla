@@ -1,5 +1,7 @@
 package usam.mantenimiento;
 
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import persistencia.Usuarios.Inventario;
@@ -59,5 +61,59 @@ public class InventarioMantenimiento {
             session.close();
         }
         return flag;
+    }
+
+    public Inventario consultarInventario(Integer idInventario) {
+        Inventario inv = new Inventario();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            inv = (Inventario) session.get(Inventario.class, idInventario);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return inv;
+    }
+
+    public int eliminarInventario(Integer idInventario) {
+        Inventario inv = new Inventario();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        int flag = 0;
+
+        try {
+            session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
+            inv = (Inventario) session.get(Inventario.class, idInventario);
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            flag = 0;
+        } finally {
+            session.close();
+        }
+        return flag;
+    }
+
+    public List consultarTodosInventario() {
+        List<Inventario> listaInventario = null;
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+
+        try {
+            session.beginTransaction(); //En el ejemplo esta fuera del try...
+            Query q = session.createQuery("from Inventario");
+            listaInventario = (List<Inventario>) q.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
+        return listaInventario;
     }
 }
