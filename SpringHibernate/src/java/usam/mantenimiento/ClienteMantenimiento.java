@@ -11,7 +11,7 @@ public class ClienteMantenimiento {
 
     public static void main(String[] args) {
 
-        Integer idCliente;
+        Integer idCliente; //Memy oh yeah!
         String cliente;
         String tipoPersona;
         String direccion;
