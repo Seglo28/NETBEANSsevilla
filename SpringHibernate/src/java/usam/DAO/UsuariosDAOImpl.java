@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package usam.DAO;
+
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import persistencia.Usuarios.Usuario;
+import usam.spring.HibernateUtil;
+
 /**
  *
  * @author Admin125
  */
-public interface VentasDAO {
-
+public class UsuariosDAOImpl {
+ 
 }

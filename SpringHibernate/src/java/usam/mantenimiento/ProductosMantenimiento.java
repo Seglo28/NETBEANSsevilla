@@ -40,6 +40,7 @@ public class ProductosMantenimiento {
         try {
             session.beginTransaction();
             session.save(prod);
+            session.delete(prod);
             session.getTransaction().commit();
             flag = 1;
         } catch (Exception e) {

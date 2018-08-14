@@ -70,6 +70,7 @@ public class InventarioMantenimiento {
         try {
             session.beginTransaction();
             inv = (Inventario) session.get(Inventario.class, idInventario);
+            session.delete(inv);
             session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
@@ -115,5 +116,5 @@ public class InventarioMantenimiento {
         } finally {
         }
         return listaInventario;
-    }
+    }    
 }

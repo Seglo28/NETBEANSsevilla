@@ -24,10 +24,10 @@ public class ComprasMantenimiento {
     }
 
     public int guardarCompras(Integer idCompra,
-        Productos productos,
-        Proveedores proveedores,
-        Integer cantidad,
-        Double monto) {
+            Productos productos,
+            Proveedores proveedores,
+            Integer cantidad,
+            Double monto) {
 
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
@@ -39,7 +39,7 @@ public class ComprasMantenimiento {
         com.setProveedores(proveedores);
         com.setCantidad(cantidad);
         com.setMonto(monto);
-       
+
         try {
             session.beginTransaction();
             session.save(com);
@@ -56,56 +56,58 @@ public class ComprasMantenimiento {
         return flag;
     }
 
-    public Compras consultarCompras(Integer idCompra){
-    Compras com = new Compras();
-    SessionFactory factory=HibernateUtil.getSessionFactory();
-    Session session = factory.openSession();
-    try{
-    session.beginTransaction();
-    com = (Compras) session.get(Compras.class, idCompra);
-    session.getTransaction().commit();
-    }catch (Exception ex) {
-            if(session.getTransaction().isActive()){
+    public Compras consultarCompras(Integer idCompra) {
+        Compras com = new Compras();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            com = (Compras) session.get(Compras.class, idCompra);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-        }finally{
-        session.close();
+        } finally {
+            session.close();
+        }
+        return com;
     }
-    return com;
-    }
-    
-    public int eliminarCompras(Integer idCompra){
+
+    public int eliminarCompras(Integer idCompra) {
         Compras com = new Compras();
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         int flag = 0;
-        
-        try{
-        session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
-        com = (Compras) session.get(Compras.class, idCompra);
-        }catch (Exception ex) {
-            if(session.getTransaction().isActive()){
+
+        try {
+            session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
+            com = (Compras) session.get(Compras.class, idCompra);
+            session.delete(com);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-            flag=0;
-        } finally{
+            flag = 0;
+        } finally {
             session.close();
         }
         return flag;
     }
-    
-    public List consultarTodosCompras(){
-        List<Compras> listaCompras=null;
+
+    public List consultarTodosCompras() {
+        List<Compras> listaCompras = null;
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        
-        try{
-        session.beginTransaction(); //En el ejemplo esta fuera del try...
-        Query q = session.createQuery("from Compras");
-        listaCompras = (List<Compras>)q.list();
-        }catch (Exception e) {
+
+        try {
+            session.beginTransaction(); //En el ejemplo esta fuera del try...
+            Query q = session.createQuery("from Compras");
+            listaCompras = (List<Compras>) q.list();
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
         }
         return listaCompras;
     }

@@ -75,6 +75,8 @@ public class UsuariosMantenimiento {
         try{
         session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
         usu = (Usuario) session.get(Usuario.class, idUsuario);
+        session.delete(usu);
+        session.getTransaction().commit();
         }catch (Exception ex) {
             if(session.getTransaction().isActive()){
                 session.getTransaction().rollback();

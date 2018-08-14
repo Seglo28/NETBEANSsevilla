@@ -6,19 +6,18 @@
 package usam.DAO;
 
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import persistencia.Usuarios.Compras;
+import persistencia.Usuarios.Productos;
+import persistencia.Usuarios.Proveedores;
+import usam.spring.HibernateUtil;
 
 /**
  *
  * @author Admin125
  */
-public interface ComprasDAO {
+public class ComprasDAOImpl {
    
-    public void AgregarCompra(Compras com);
-    
-    public void ActualizarCompra(Compras com);
-    
-    public List<Compras> MostrarTodosCompras();
-    
-    public Compras MostrarUnoCompras (Integer idCompra);
 }

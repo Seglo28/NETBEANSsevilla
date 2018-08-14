@@ -56,12 +56,13 @@ public class FabricantesMantenimiento {
         try {
             session.beginTransaction();
             fab = (Fabricantes) session.get(Fabricantes.class, idFabricante);
+            session.delete(fab);
             session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
             }
-        } finally{
+        } finally {
             session.close();
         }
         return fab;
@@ -76,6 +77,8 @@ public class FabricantesMantenimiento {
         try {
             session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
             fab = (Fabricantes) session.get(Fabricantes.class, idFabricante);
+            session.delete(fab);
+            session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();

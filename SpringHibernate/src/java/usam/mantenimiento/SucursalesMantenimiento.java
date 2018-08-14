@@ -64,6 +64,7 @@ public class SucursalesMantenimiento {
     try{
     session.beginTransaction();
     suc = (Sucursales) session.get(Sucursales.class, idSucursal);
+    session.delete(suc);
     session.getTransaction().commit();
     }catch (Exception ex) {
             if(session.getTransaction().isActive()){
@@ -109,5 +110,5 @@ public class SucursalesMantenimiento {
         }finally{
         }
         return listaSucursales;
-    }
+    }    
 }

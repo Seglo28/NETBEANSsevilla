@@ -89,6 +89,8 @@ public class VentasMantenimiento {
         try {
             session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
             ven = (Ventas) session.get(Ventas.class, idVenta);
+            session.delete(ven);
+            session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();

@@ -77,6 +77,8 @@ public class ProveedorMantenimiento {
         try {
             session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
             pro = (Proveedores) session.get(Proveedores.class, idProveedor);
+            session.delete(pro);
+            session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();

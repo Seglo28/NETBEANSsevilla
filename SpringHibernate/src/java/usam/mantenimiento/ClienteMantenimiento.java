@@ -12,99 +12,135 @@ public class ClienteMantenimiento {
     public static void main(String[] args) {
 
         Integer idCliente; //Memy oh yeah!
-        String cliente="";
-        String tipoPersona="";
-        String direccion="";
-        String telefono="";
+        String cliente = "";
+        String tipoPersona = "";
+        String direccion = "";
+        String telefono = "";
 
         ClienteMantenimiento mantenimiento = new ClienteMantenimiento();
 
         System.out.println();
     }
 
-    public int guardarClientes(Integer idCliente,
+    public int guardarClientes(int idCliente,
             String cliente,
             String tipoPersona,
             String direccion,
             String telefono) {
-        
-        SessionFactory factory= HibernateUtil.getSessionFactory();
+
+        SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        int flag=0;
-        
+        int flag = 0;
+
         Clientes cli = new Clientes();
         cli.setIdCliente(idCliente);
         cli.setCliente(cliente);
         cli.setTipoPersona(tipoPersona);
         cli.setDireccion(direccion);
         cli.setTelefono(telefono);
-        try{
-        session.beginTransaction();
-        session.save(cli);
-        session.getTransaction().commit();;
-        flag=1;
-        }catch (Exception e) {
-            if(session.getTransaction().isActive()){
+        try {
+            session.beginTransaction();
+            session.save(cli);
+            session.getTransaction().commit();;
+            flag = 1;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                flag=1;
+                flag = 1;
             }
-        }finally{
-                    session.close();
-                    }
-        return flag;
-    }
-    
-    public Clientes consultarClientes(Integer idCliente){
-    Clientes cli = new Clientes();
-    SessionFactory factory=HibernateUtil.getSessionFactory();
-    Session session = factory.openSession();
-    try{
-    session.beginTransaction();
-    cli = (Clientes) session.get(Clientes.class, idCliente);
-    session.getTransaction().commit();
-    }catch (Exception ex) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-        }finally{
-        session.close();
-    }
-    return cli;
-    }
-    
-    public int eliminarClientes(Integer idCliente){
-        Clientes cli = new Clientes();
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        int flag = 0;
-        
-        try{
-        session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
-        cli = (Clientes) session.get(Clientes.class, idCliente);
-        }catch (Exception ex) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-            }
-            flag=0;
-        } finally{
+        } finally {
             session.close();
         }
         return flag;
     }
-    
-    public List consultarTodosClientes(){
-        List<Clientes> listaClientes=null;
+
+    public Clientes consultarClientes(Integer idCliente) {
+        Clientes cli = new Clientes();
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        
-        try{
-        session.beginTransaction(); //En el ejemplo esta fuera del try...
-        Query q = session.createQuery("from Clientes");
-        listaClientes = (List<Clientes>)q.list();
-        }catch (Exception e) {
+        try {
+            session.beginTransaction();
+            cli = (Clientes) session.get(Clientes.class, idCliente);
+            session.getTransaction().commit();
+            System.out.println("Todo bien");
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return cli;
+    }
+
+    public int eliminarClientes(Integer idCliente) {
+        Clientes cli = new Clientes();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        int flag = 0;
+
+        try {
+            session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
+            cli = (Clientes) session.get(Clientes.class, idCliente);
+            session.delete(cli);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+            flag = 0;
+        } finally {
+            session.close();
+        }
+        return flag;
+    }
+
+    public List consultarTodosClientes() {
+        List<Clientes> listaClientes = null;
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+
+        try {
+            session.beginTransaction(); //En el ejemplo esta fuera del try...
+            Query q = session.createQuery("from Clientes");
+            listaClientes = (List<Clientes>) q.list();
+            System.out.println("Todos los clientes estan en orden");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
         }
         return listaClientes;
+    }
+
+    public int actualizarClientes(int idCliente,
+            String cliente,
+            String tipoPersona,
+            String direccion,
+            String telefono) {
+
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        int flag = 0;
+
+        Clientes cli = new Clientes();
+        cli.setIdCliente(idCliente);
+        cli.setCliente(cliente);
+        cli.setTipoPersona(tipoPersona);
+        cli.setDireccion(direccion);
+        cli.setTelefono(telefono);
+        try {
+            session.beginTransaction();
+            session.update(cli);
+            session.getTransaction().commit();;
+            flag = 1;
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+                flag = 1;
+            }
+        } finally {
+            session.close();
+        }
+        return flag;
     }
 }

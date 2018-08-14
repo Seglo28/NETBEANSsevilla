@@ -59,6 +59,7 @@ public class FacturasMantenimiento {
         try {
             session.beginTransaction();
             fac = (Facturas) session.get(Facturas.class, idFactura);
+            session.delete(fac);
             session.getTransaction().commit();
         } catch (Exception ex) {
             if (session.getTransaction().isActive()) {
@@ -104,5 +105,5 @@ public class FacturasMantenimiento {
         } finally {
         }
         return listaFacturas;
-    }
+    }    
 }
