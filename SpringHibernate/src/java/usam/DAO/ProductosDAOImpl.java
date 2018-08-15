@@ -6,18 +6,49 @@
 package usam.DAO;
 
 import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import persistencia.Usuarios.Fabricantes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import persistencia.Usuarios.Productos;
-import persistencia.Usuarios.Proveedores;
-import usam.spring.HibernateUtil;
 
 /**
  *
  * @author Admin125
  */
-public class ProductosDAOImpl {
+@Repository
+public class ProductosDAOImpl implements ProductosDAO{
 
+    @Autowired
+    SessionFactory sf;
+    
+    @Override
+    public void AgregarProducto(Productos pro) {
+        sf.getCurrentSession().save(pro);
+    }
+
+    @Override
+    public void ActualizarProducto(Productos pro) {
+        sf.getCurrentSession().update(pro);
+    }
+
+    @Override
+    public List<Productos> MostrarTodosProductos() {
+        return sf.getCurrentSession().createQuery("FROM productos").list();
+    }
+
+    @Override
+    public Productos MostrarUnoProductos(Integer idProducto) {
+        Session s = sf.getCurrentSession();
+        List<Productos> list = s.createQuery("FROM productos pro WHERE pro.idProducto=:idProducto").setParameter("idProducto", idProducto).list();
+        return list.size()>0?(Productos)list.get(0):null;
+    }
+
+    @Override
+    public void EliminarProducto(Integer idProducto) {
+        Productos pro = (Productos)sf.getCurrentSession().load(Productos.class, idProducto);
+        if(pro!=null){
+            sf.getCurrentSession().delete(pro);
+        }
+    }
 }

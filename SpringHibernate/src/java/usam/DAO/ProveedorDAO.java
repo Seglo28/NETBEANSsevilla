@@ -22,5 +22,5 @@ public interface ProveedorDAO {
     
     public Proveedores MostrarUnoProveedores(Integer idProveedor);
     
-    public void EliminarProveedor (Integer idProveedores);
+    public void EliminarProveedor (Integer idProveedor);
 }
