@@ -4,10 +4,23 @@
  * and open the template in the editor.
  */
 package usam.DAO;
+
+import java.util.List;
+import persistencia.Usuarios.Proveedores;
+
 /**
  *
  * @author Admin125
  */
 public interface ProveedorDAO {
-
+    
+    public void AgregarProveedor(Proveedores pro);
+    
+    public void ActualizarProveedor(Proveedores pro);
+    
+    public List<Proveedores> MostrarTodosProveedores();
+    
+    public Proveedores MostrarUnoProveedores(Integer idProveedor);
+    
+    public void EliminarProveedor (Integer idProveedores);
 }

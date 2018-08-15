@@ -21,4 +21,6 @@ public interface ComprasDAO {
     public List<Compras> MostrarTodosCompras();
     
     public Compras MostrarUnoCompras (Integer idCompra);
+    
+    public void EliminarCompra (Integer idCompra);
 }

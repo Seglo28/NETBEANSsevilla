@@ -4,10 +4,23 @@
  * and open the template in the editor.
  */
 package usam.DAO;
+
+import java.util.List;
+import persistencia.Usuarios.Ventas;
+
 /**
  *
  * @author Admin125
  */
 public interface VentasDAO {
-
+    
+    public void AgregarVentas(Ventas ven);
+    
+    public void ActualizarVentas(Ventas ven);
+    
+    public List<Ventas> MostrarTodosVentas();
+    
+    public Ventas MostrarUnoVentas(Integer idVenta);
+    
+    public void EliminarVentas (Integer idVenta);
 }
