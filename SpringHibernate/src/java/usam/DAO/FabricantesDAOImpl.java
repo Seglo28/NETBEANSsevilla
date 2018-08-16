@@ -9,12 +9,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import persistencia.Usuarios.Fabricantes;
 
 /**
  *
  * @author Admin125
  */
+@Repository
 public class FabricantesDAOImpl implements FabricantesDAO{
 
     @Autowired
