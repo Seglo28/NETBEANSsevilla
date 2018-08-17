@@ -10,11 +10,11 @@ import usam.spring.HibernateUtil;
 public class SucursalesMantenimiento {
 
     public static void main(String[] args) {
-        
+
         SucursalesMantenimiento m = new SucursalesMantenimiento();
-        
+
         /*--- AGREGAR ---*/
-        /*
+ /*
         Integer idSucursal=0;
         String sucursal="a";
         String direccion="a";
@@ -23,29 +23,25 @@ public class SucursalesMantenimiento {
         String telefono="a";
         
         m.guardarSucursales(idSucursal, sucursal, direccion, municipio, departamento, telefono);
-        */
-        
-        /*--- MOSTRAR UNO ---*/
-        /*
+         */
+ /*--- MOSTRAR UNO ---*/
+ /*
         Sucursales mu = m.consultarSucursal(2);
         System.out.println(mu);
-        */
-        
-        /*--- ELIMINAR ---*/
-        /*
+         */
+ /*--- ELIMINAR ---*/
+ /*
         m.eliminarSucursal(3);
-*/
-        
-        /*--- MOSTRAR TODOS ---*/
-        /*
+         */
+ /*--- MOSTRAR TODOS ---*/
+ /*
         List mt = m.consultarTodosSucursales();
         System.out.println(mt);
-        */
-        
-        /*--- ACTUALIZAR ---*/
-        /*
+         */
+ /*--- ACTUALIZAR ---*/
+ /*
         m.ActualizarSucursales(2, "sucursal", "direccion", "municipio", "departamento", "telefono");
-*/
+         */
     }
 
     public int guardarSucursales(Integer idSucursal,
@@ -76,14 +72,14 @@ public class SucursalesMantenimiento {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error al agregar sucursal. "+e.getMessage());
+                System.out.println("Error al agregar sucursal. " + e.getMessage());
             }
         } finally {
             session.close();
         }
         return flag;
     }
-    
+
     public int ActualizarSucursales(Integer idSucursal,
             String sucursal,
             String direccion,
@@ -112,7 +108,7 @@ public class SucursalesMantenimiento {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error al actualizar sucursal. "+e.getMessage());
+                System.out.println("Error al actualizar sucursal. " + e.getMessage());
             }
         } finally {
             session.close();
@@ -120,69 +116,69 @@ public class SucursalesMantenimiento {
         return flag;
     }
 
-    public Sucursales consultarSucursal(Integer idSucursal){
-    Sucursales suc = new Sucursales();
-    SessionFactory factory=HibernateUtil.getSessionFactory();
-    Session session = factory.openSession();
-    try{
-    session.beginTransaction();
-    suc = (Sucursales) session.get(Sucursales.class, idSucursal);
-    session.getTransaction().commit();
-        if(suc==null){
-            System.out.println("Los datos sobre la sucursal solicitada se han eliminado anteriormente.");
-        }else{
-            System.out.println("Mostrar datos de sucursal.");
-        }
-    }catch (Exception e) {
-            if(session.getTransaction().isActive()){
-                session.getTransaction().rollback();
-                System.out.println("Error al mostrar sucursal. "+e.getMessage());
+    public Sucursales consultarSucursal(Integer idSucursal) {
+        Sucursales suc = new Sucursales();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            suc = (Sucursales) session.get(Sucursales.class, idSucursal);
+            session.getTransaction().commit();
+            if (suc == null) {
+                System.out.println("Los datos sobre la sucursal solicitada se han eliminado anteriormente.");
+            } else {
+                System.out.println("Mostrar datos de sucursal.");
             }
-        }finally{
-        session.close();
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+                System.out.println("Error al mostrar sucursal. " + e.getMessage());
+            }
+        } finally {
+            session.close();
+        }
+        return suc;
     }
-    return suc;
-    }
-    
-    public int eliminarSucursal(Integer idSucursal){
+
+    public int eliminarSucursal(Integer idSucursal) {
         Sucursales suc = new Sucursales();
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         int flag = 0;
-        
-        try{
-        session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
-        suc = (Sucursales) session.get(Sucursales.class, idSucursal);
-        session.delete(suc);
+
+        try {
+            session.beginTransaction(); //EN EL EJEMPLO ESTO ESTA FUERA DEL TRY... EN LA PARTE SUPERIOR
+            suc = (Sucursales) session.get(Sucursales.class, idSucursal);
+            session.delete(suc);
             session.getTransaction().commit();
-        System.out.println("Datos de la sucursal eliminados correctamente.");
-        }catch (Exception e) {
-            if(session.getTransaction().isActive()){
+            System.out.println("Datos de la sucursal eliminados correctamente.");
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Los datos no se han eliminado. "+e);
+                System.out.println("Los datos no se han eliminado. " + e);
             }
-            flag=0;
-        } finally{
+            flag = 0;
+        } finally {
             session.close();
         }
         return flag;
     }
-    
-    public List consultarTodosSucursales(){
-        List<Sucursales> listaSucursales=null;
+
+    public List consultarTodosSucursales() {
+        List<Sucursales> listaSucursales = null;
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        
-        try{
-        session.beginTransaction(); //En el ejemplo esta fuera del try...
-        Query q = session.createQuery("from Sucursales");
-        listaSucursales = (List<Sucursales>)q.list();
+
+        try {
+            session.beginTransaction(); //En el ejemplo esta fuera del try...
+            Query q = session.createQuery("from Sucursales");
+            listaSucursales = (List<Sucursales>) q.list();
             System.out.println("Datos totales de las sucursales.");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error al mostrar datos. "+e.getMessage());
-        }finally{
+            System.out.println("Error al mostrar datos. " + e.getMessage());
+        } finally {
         }
         return listaSucursales;
-    }    
+    }
 }

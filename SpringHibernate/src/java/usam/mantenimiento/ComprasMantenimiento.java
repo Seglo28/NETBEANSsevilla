@@ -11,12 +11,11 @@ import usam.spring.HibernateUtil;
 
 public class ComprasMantenimiento {
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
         ComprasMantenimiento mant = new ComprasMantenimiento();
-        
+
         /* ------ Guardar -------- */
-        
-        /*int idCompra = 0;
+ /*int idCompra = 0;
         int productos = 1;
         int proveedores = 2;
         int cantidad = 20;
@@ -24,26 +23,27 @@ public static void main(String[] args) {
 
         int r = mant.guardarCompras(idCompra, productos, proveedores, cantidad, monto); 
         System.exit(0);
-        */
-        
-                /* ----- Actualizar ----- */
-        /*
+         */
+ /* ----- Actualizar ----- */
+ /*
         int actua = mant.ActualizarCompras(3, 1, 2, 444, 222);
-       */
-        
-        /* ----- Consultar ----- */
-        /*/
+         */
+ /* ----- Consultar TODOS----- */
+ /*/
         List<Compras> list;
         list = mant.consultarTodosCompras();
         System.out.println(list);
         System.exit(0);
-        */
+         */
 
-        /* ----- Eliminar ----- */
-        /*
+ /* ----- Eliminar ----- */
+ /*
         int borrar = mant.eliminarCompra(2);
-*/
-        
+         */
+ /* ----- CONSULTAR UNO ----- */
+ /*
+        mant.consultarCompra(4);
+         */
     }
 
     public int guardarCompras(int idCompra,
@@ -58,15 +58,15 @@ public static void main(String[] args) {
 
         Compras com = new Compras();
         com.setIdCompra(idCompra);
-        
+
         Productos producto = new Productos();
         producto.setIdProducto(idProductos);
         com.setProductos(producto);
-        
+
         Proveedores proveedor = new Proveedores();
         proveedor.setIdProveedor(idProveedores);
         com.setProveedores(proveedor);
-        
+
         com.setCantidad(cantidad);
         com.setMonto(monto);
 
@@ -80,7 +80,7 @@ public static void main(String[] args) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error al guardar Compra "+e);
+                System.out.println("Error al guardar Compra " + e);
             }
         } finally {
             session.close();
@@ -88,6 +88,7 @@ public static void main(String[] args) {
         return flag;
 
     }
+
     public int ActualizarCompras(int idCompra,
             int idProductos,
             int idProveedores,
@@ -100,15 +101,15 @@ public static void main(String[] args) {
 
         Compras com = new Compras();
         com.setIdCompra(idCompra);
-        
+
         Productos producto = new Productos();
         producto.setIdProducto(idProductos);
         com.setProductos(producto);
-        
+
         Proveedores proveedor = new Proveedores();
         proveedor.setIdProveedor(idProveedores);
         com.setProveedores(proveedor);
-        
+
         com.setCantidad(cantidad);
         com.setMonto(monto);
 
@@ -122,7 +123,7 @@ public static void main(String[] args) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("No se actualizó la Compra "+e);
+                System.out.println("No se actualizó la Compra " + e);
             }
         } finally {
             session.close();
@@ -144,7 +145,7 @@ public static void main(String[] args) {
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Error consultaPorId Compra "+e);
+                System.out.println("Error consultaPorId Compra " + e);
             }
             return null;
         } finally {
@@ -158,7 +159,7 @@ public static void main(String[] args) {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         int flag = 0;
-       
+
         try {
             session.beginTransaction();
             com = (Compras) session.get(Compras.class, idCompra);
@@ -171,7 +172,7 @@ public static void main(String[] args) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error Eliminar Compra "+e);
+                System.out.println("Error Eliminar Compra " + e);
             }
         } finally {
             session.close();
@@ -200,5 +201,27 @@ public static void main(String[] args) {
         return listaCompras;
     }
 
-
+    public Compras consultarCompra(Integer idCompra) {
+        Compras com = new Compras();
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            com = (Compras) session.get(Compras.class, idCompra);
+            session.getTransaction().commit();
+            if (com == null) {
+                System.out.println("Los datos deseados han sido eliminados con aterioridad o no existe.");
+            } else {
+                System.out.println("Consulta exitosa.");
+            }
+        } catch (Exception e) {
+            if (session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+                System.out.println("Error al consultar. " + e.getMessage());
+            }
+        } finally {
+            session.close();
+        }
+        return com;
+    }
 }

@@ -12,9 +12,9 @@ public class FabricantesMantenimiento {
     public static void main(String[] args) {
 
         FabricantesMantenimiento m = new FabricantesMantenimiento();
-        
+
         /*--- AGREGAR ---*/
-        /*
+ /*
         Integer idFabricante = 0;
         String fabricante = "Gloria";
         String direccion = "Sierra Morena, Soyapango";
@@ -22,35 +22,30 @@ public class FabricantesMantenimiento {
         
         int agregar = m.guardarFabricantes(idFabricante, fabricante, direccion, telefono);
         System.out.println(agregar);
-        */
-        
-        /*--- MOSTRAR UNO ---*/
-        /*
+         */
+ /*--- MOSTRAR UNO ---*/
+ /*
         Fabricantes mt = m.consultarFabricante(2);
         System.out.println(mt);
-        */
-        
-        /*--- ELIMIMAR ---*/
-        /*
+         */
+ /*--- ELIMIMAR ---*/
+ /*
         m.eliminarFabricante(2);
-*/
-        
-        /*--- MOSTRAR TODOS ---*/
-        /*
+         */
+ /*--- MOSTRAR TODOS ---*/
+ /*
         List mt = m.consultarTodosFabricantes();
         System.out.println(mt);
-        */
-        
-        /*--- MOSTRAR UNO ---*/
-        /*
+         */
+ /*--- MOSTRAR UNO ---*/
+ /*
         Fabricantes mu = m.consultarFabricante(2);
         System.out.println(mu);
-        */
-        
-        /*--- ACTUALIZAR ---*/
-        /*
+         */
+ /*--- ACTUALIZAR ---*/
+ /*
         m.ActualizarFabricantes(3, "fabricante", "direccion", "telefono");
-        */
+         */
     }
 
     public int guardarFabricantes(Integer idFabricante,
@@ -83,7 +78,7 @@ public class FabricantesMantenimiento {
         }
         return flag;
     }
-    
+
     public int ActualizarFabricantes(Integer idFabricante,
             String fabricante,
             String direccion,
@@ -123,15 +118,15 @@ public class FabricantesMantenimiento {
             session.beginTransaction();
             fab = (Fabricantes) session.get(Fabricantes.class, idFabricante);
             session.getTransaction().commit();
-            if(fab==null){
+            if (fab == null) {
                 System.out.println("Los datos sobre el Fabricante solicitado han sido eliminados previamente del sistema.");
-            } else{
+            } else {
                 System.out.println("Este es el fabricante solicitado.");
             }
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Error al mostrar dato de fabricante." +e.getMessage());
+                System.out.println("Error al mostrar dato de fabricante." + e.getMessage());
             }
         } finally {
             session.close();
@@ -154,7 +149,7 @@ public class FabricantesMantenimiento {
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Error al eliminar el fabricante. "+e.getMessage());
+                System.out.println("Error al eliminar el fabricante. " + e.getMessage());
             }
             flag = 0;
         } finally {
@@ -175,7 +170,7 @@ public class FabricantesMantenimiento {
             System.out.println("Todos los fabricantes se estan mostrando.");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error al mostrar todos los fabricantes. "+e.getMessage());
+            System.out.println("Error al mostrar todos los fabricantes. " + e.getMessage());
         } finally {
         }
         return listaFabricantes;

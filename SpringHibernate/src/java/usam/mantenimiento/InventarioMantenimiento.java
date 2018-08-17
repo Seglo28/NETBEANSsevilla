@@ -23,11 +23,11 @@ public class InventarioMantenimiento {
         int idProducto = 1;
         int cant = 7;
         int stock = 3;
-        String estado = "Bisexual";
+        String estado = "yoooo";
         int idProveedor = 2;
         int idSucursal = 1;
         
-        int r = mant.guardarInventario(idInventario, idProducto, cant, stock, estado, idProveedor, idSucursal);
+        int r = m.guardarInventario(idInventario, idProducto, cant, stock, estado, idProveedor, idSucursal);
         System.exit(0);
         */
         

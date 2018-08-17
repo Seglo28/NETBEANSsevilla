@@ -12,9 +12,9 @@ public class ClienteMantenimiento {
     public static void main(String[] args) {
 
         ClienteMantenimiento m = new ClienteMantenimiento();
-        
+
         /*--- GUARDAR ---*/
-        /*
+ /*
         Integer idCliente = 0;
         String cliente = "Delmy";
         String tipoPersona = "Natural";
@@ -23,33 +23,29 @@ public class ClienteMantenimiento {
         
         int guardar = m.guardarClientes(0, cliente, tipoPersona, direccion, telefono);
         System.out.println(guardar);
-*/
-        
-        /*--- ACTUALIZAR ---*/
-        /*
+         */
+ /*--- ACTUALIZAR ---*/
+ /*
         int actualizar = m.actualizarClientes(3, "Gloria", "Natural", "Sierra Morena, Soyapango", "2287-8991");
         System.out.println(actualizar);
-        */
-        
-        /*--- ELIMINAR ---*/
-        /*
+         */
+ /*--- ELIMINAR ---*/
+ /*
         int eliminar = m.eliminarClientes(1);
         System.out.println(eliminar);
-        */
-        
-        /*--- MOSTRAR TODOS ---*/
-        /*
+         */
+ /*--- MOSTRAR TODOS ---*/
+ /*
         List mt = m.consultarTodosClientes();
         System.out.println(mt);
-        */
-        
-        /*--- MOSTRAR UNO ---*/
-        /*
+         */
+ /*--- MOSTRAR UNO ---*/
+ /*
         Clientes mu = m.consultarClientes(2);
         System.out.println(mu);
-*/
+         */
     }
-    
+
     public int guardarClientes(int idCliente,
             String cliente,
             String tipoPersona,
@@ -76,7 +72,7 @@ public class ClienteMantenimiento {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error en registro de cliente "+e.getMessage());
+                System.out.println("Error en registro de cliente " + e.getMessage());
             }
         } finally {
             session.close();
@@ -96,7 +92,7 @@ public class ClienteMantenimiento {
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Error al consultar unitariamente" +e.getMessage());
+                System.out.println("Error al consultar unitariamente" + e.getMessage());
             }
         } finally {
             session.close();
@@ -119,10 +115,10 @@ public class ClienteMantenimiento {
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
-                System.out.println("Error al eliminar. "+e.getMessage());
+                System.out.println("Error al eliminar. " + e.getMessage());
             }
             flag = 0;
-            
+
         } finally {
             session.close();
         }
@@ -141,7 +137,7 @@ public class ClienteMantenimiento {
             System.out.println("Consulta a todos los clientes exitosa");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error al consultar todos los clientes. "+e.getMessage());
+            System.out.println("Error al consultar todos los clientes. " + e.getMessage());
         } finally {
         }
         return listaClientes;
@@ -173,7 +169,7 @@ public class ClienteMantenimiento {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error al actualizar. "+e.getMessage());
+                System.out.println("Error al actualizar. " + e.getMessage());
             }
         } finally {
             session.close();
