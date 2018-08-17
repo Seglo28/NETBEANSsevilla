@@ -11,17 +11,45 @@ public class ClienteMantenimiento {
 
     public static void main(String[] args) {
 
-        Integer idCliente; //Memy oh yeah!
-        String cliente = "";
-        String tipoPersona = "";
-        String direccion = "";
-        String telefono = "";
-
-        ClienteMantenimiento mantenimiento = new ClienteMantenimiento();
-
-        System.out.println();
+        ClienteMantenimiento m = new ClienteMantenimiento();
+        
+        /*--- GUARDAR ---*/
+        /*
+        Integer idCliente = 0;
+        String cliente = "Delmy";
+        String tipoPersona = "Natural";
+        String direccion = "Tutumacayan";
+        String telefono = "Es pobre xD";
+        
+        int guardar = m.guardarClientes(0, cliente, tipoPersona, direccion, telefono);
+        System.out.println(guardar);
+*/
+        
+        /*--- ACTUALIZAR ---*/
+        /*
+        int actualizar = m.actualizarClientes(3, "Gloria", "Natural", "Sierra Morena, Soyapango", "2287-8991");
+        System.out.println(actualizar);
+        */
+        
+        /*--- ELIMINAR ---*/
+        /*
+        int eliminar = m.eliminarClientes(1);
+        System.out.println(eliminar);
+        */
+        
+        /*--- MOSTRAR TODOS ---*/
+        /*
+        List mt = m.consultarTodosClientes();
+        System.out.println(mt);
+        */
+        
+        /*--- MOSTRAR UNO ---*/
+        /*
+        Clientes mu = m.consultarClientes(2);
+        System.out.println(mu);
+*/
     }
-
+    
     public int guardarClientes(int idCliente,
             String cliente,
             String tipoPersona,
@@ -43,10 +71,12 @@ public class ClienteMantenimiento {
             session.save(cli);
             session.getTransaction().commit();;
             flag = 1;
+            System.out.println("Cliente registrado exitosamente.");
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
+                System.out.println("Error en registro de cliente "+e.getMessage());
             }
         } finally {
             session.close();
@@ -62,10 +92,11 @@ public class ClienteMantenimiento {
             session.beginTransaction();
             cli = (Clientes) session.get(Clientes.class, idCliente);
             session.getTransaction().commit();
-            System.out.println("Todo bien");
-        } catch (Exception ex) {
+            System.out.println("Consulta unitaria exitosa.");
+        } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
+                System.out.println("Error al consultar unitariamente" +e.getMessage());
             }
         } finally {
             session.close();
@@ -84,11 +115,14 @@ public class ClienteMantenimiento {
             cli = (Clientes) session.get(Clientes.class, idCliente);
             session.delete(cli);
             session.getTransaction().commit();
-        } catch (Exception ex) {
+            System.out.println("Se a eliminado el elemento seleccionado.");
+        } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
+                System.out.println("Error al eliminar. "+e.getMessage());
             }
             flag = 0;
+            
         } finally {
             session.close();
         }
@@ -104,9 +138,10 @@ public class ClienteMantenimiento {
             session.beginTransaction(); //En el ejemplo esta fuera del try...
             Query q = session.createQuery("from Clientes");
             listaClientes = (List<Clientes>) q.list();
-            System.out.println("Todos los clientes estan en orden");
+            System.out.println("Consulta a todos los clientes exitosa");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error al consultar todos los clientes. "+e.getMessage());
         } finally {
         }
         return listaClientes;
@@ -133,10 +168,12 @@ public class ClienteMantenimiento {
             session.update(cli);
             session.getTransaction().commit();;
             flag = 1;
+            System.out.println("Actualización exitosa. ");
         } catch (Exception e) {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
+                System.out.println("Error al actualizar. "+e.getMessage());
             }
         } finally {
             session.close();

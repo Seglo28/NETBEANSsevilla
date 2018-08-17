@@ -14,10 +14,11 @@ public class InventarioMantenimiento {
 
     public static void main(String[] args) {
         
-        InventarioMantenimiento mant = new InventarioMantenimiento();
+        InventarioMantenimiento m = new InventarioMantenimiento();
         
         /*-- GUARDAR --*/
         
+        /*
         int idInventario = 0;
         int idProducto = 1;
         int cant = 7;
@@ -28,6 +29,29 @@ public class InventarioMantenimiento {
         
         int r = mant.guardarInventario(idInventario, idProducto, cant, stock, estado, idProveedor, idSucursal);
         System.exit(0);
+        */
+        
+        /*-- ACTUALIZAR --*/
+        /*
+        int actualizar = m.ActualizarInventario(2, 2, 69, 50, "AKI ESTOI", 2, 2);
+        */
+        
+        /*--- CONSULTAR TODOS---*/
+        /*
+        List mostrarT= m.consultarTodosInventario();
+        System.out.println(mostrarT);
+        */
+        
+        /* --- CONSULTAR UNO ---*/
+        /*
+        Inventario mostrarU = m.consultarInventario(5);
+        System.out.println(mostrarU);
+        */
+        
+        /* --- ELIMINAR ---*/
+        /*
+        int eliminar = m.eliminarInventario(1);
+        */
     }
 
     public int guardarInventario(
@@ -115,7 +139,7 @@ public class InventarioMantenimiento {
         
         //A CONTINUACIÓN INSTANCIAMOS A LA CLASE PROVEEDORES, LA CUAL CONTRIBUYE CON LLAVE FORANEA
         Proveedores p = new Proveedores(); 
-        p.getIdProveedor();
+        p.setIdProveedor(idProveedor);
         inv.setProveedores(p);
         //A CONTINUACIÓN INSTANCIAMOS A LA CLASE SUCURSALES, LA CUAL CONTRIBUYE CON LLAVE FORANEA
         Sucursales s = new Sucursales();
@@ -131,7 +155,7 @@ public class InventarioMantenimiento {
             if (session.getTransaction().isActive()) {
                 session.getTransaction().rollback();
                 flag = 1;
-                System.out.println("Error al tratar de actualizar el inventario.");
+                System.out.println("Error al tratar de actualizar el inventario."+e);
             }
         } finally {
             session.close();

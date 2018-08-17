@@ -84,6 +84,7 @@ public class Inventario  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
 }
 
 
