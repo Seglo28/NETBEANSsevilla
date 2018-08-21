@@ -35,10 +35,10 @@ public class ClienteMantenimiento {
         System.out.println(eliminar);
          */
  /*--- MOSTRAR TODOS ---*/
- /*
+ 
         List mt = m.consultarTodosClientes();
         System.out.println(mt);
-         */
+         
  /*--- MOSTRAR UNO ---*/
  /*
         Clientes mu = m.consultarClientes(2);
@@ -53,7 +53,11 @@ public class ClienteMantenimiento {
             String telefono) {
 
         SessionFactory factory = HibernateUtil.getSessionFactory();
+        //Fabrica de sesiones, donde se almacena la variable factory. Es el almacenamiento de todas las sesiones
         Session session = factory.openSession();
+        //objeto de la clase Session llamado session
+        //En la fabrica tenemos todas las sesiones y en el segundo es esa en concreto. Esta
+        //abre la sesion que tenemos "factory"
         int flag = 0;
 
         Clientes cli = new Clientes();
@@ -64,8 +68,11 @@ public class ClienteMantenimiento {
         cli.setTelefono(telefono);
         try {
             session.beginTransaction();
+            //Aqui empezamos una nueva transaccion
             session.save(cli);
-            session.getTransaction().commit();;
+            //La accion que queremos que realize
+            session.getTransaction().commit();
+            //Para que realice los cambios
             flag = 1;
             System.out.println("Cliente registrado exitosamente.");
         } catch (Exception e) {
@@ -131,9 +138,11 @@ public class ClienteMantenimiento {
         Session session = factory.openSession();
 
         try {
-            session.beginTransaction(); //En el ejemplo esta fuera del try...
+            session.beginTransaction();
             Query q = session.createQuery("from Clientes");
+            //No es sql, simplemente es el lenguaje de acceso a datos = query.
             listaClientes = (List<Clientes>) q.list();
+            //List donde la query se integra a la lista
             System.out.println("Consulta a todos los clientes exitosa");
         } catch (Exception e) {
             e.printStackTrace();

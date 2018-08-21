@@ -72,6 +72,11 @@ public class Clientes  implements java.io.Serializable {
         this.ventases = ventases;
     }
 
+    @Override
+    public String toString() {
+        return "Clientes{" + "idCliente=" + idCliente + ", cliente=" + cliente + ", tipoPersona=" + tipoPersona + ", direccion=" + direccion + ", telefono=" + telefono + ", ventases=" + ventases + '}';
+    }
+
 
 
 
