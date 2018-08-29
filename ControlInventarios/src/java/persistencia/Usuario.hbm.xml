@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/08/2018 10:04:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="persistencia.Usuario" table="usuario" catalog="control_inventario" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="id_usuario" />
+            <generator class="identity" />
+        </id>
+        <property name="usuario" type="string">
+            <column name="usuario" length="25" />
+        </property>
+        <property name="correo" type="string">
+            <column name="correo" length="25" />
+        </property>
+        <property name="contra" type="string">
+            <column name="contra" length="45" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="cargo" length="25" />
+        </property>
+        <set name="ventases" table="ventas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_usuario" not-null="true" />
+            </key>
+            <one-to-many class="persistencia.Ventas" />
+        </set>
+    </class>
+</hibernate-mapping>

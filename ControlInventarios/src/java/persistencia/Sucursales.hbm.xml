@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/08/2018 10:04:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="persistencia.Sucursales" table="sucursales" catalog="control_inventario" optimistic-lock="version">
+        <id name="idSucursal" type="java.lang.Integer">
+            <column name="id_sucursal" />
+            <generator class="identity" />
+        </id>
+        <property name="sucursal" type="string">
+            <column name="sucursal" length="25" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="50" />
+        </property>
+        <property name="municipio" type="string">
+            <column name="municipio" length="25" />
+        </property>
+        <property name="departamento" type="string">
+            <column name="departamento" length="25" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="telefono" length="15" />
+        </property>
+        <set name="inventarios" table="inventario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_sucursal" not-null="true" />
+            </key>
+            <one-to-many class="persistencia.Inventario" />
+        </set>
+        <set name="facturases" table="facturas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_sucursal" not-null="true" />
+            </key>
+            <one-to-many class="persistencia.Facturas" />
+        </set>
+    </class>
+</hibernate-mapping>
