@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-21-2018 04:38:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="usam.persistencia.Departamentos" table="departamentos" catalog="seguridad" optimistic-lock="version">
+        <id name="codigoDepartamento" type="string">
+            <column name="codigo_departamento" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="departamento" type="string">
+            <column name="departamento" length="50" />
+        </property>
+        <property name="fechaCreacion" type="date">
+            <column name="fecha_creacion" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
